@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6366f1;
+  --color-primary-dark: #4338ca;
+  --color-primary-light: #818cf8;
+  --color-accent: #ec4899;
+  --color-accent-dark: #db2777;
+  --color-surface: #ffffff;
+  --color-surface-dark: #1e1b2e;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.Toastify__toast {
+  border-radius: 1rem !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-weight: 500 !important;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(to right, #6366f1, #ec4899) !important;
+  color: white !important;
+}
+
+.Toastify__toast--error {
+  background: #1e1b2e !important;
+  color: white !important;
+  border: 1px solid #ec4899 !important;
+}
+
+.Toastify__toast--success .Toastify__progress-bar,
+.Toastify__toast--error .Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.Toastify__close-button {
+  color: white !important;
+  opacity: 0.8 !important;
+}
