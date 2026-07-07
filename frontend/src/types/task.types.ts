@@ -36,5 +36,10 @@ export const TaskStatus = {
       page: number;
       limit: number;
       totalPages: number;
+      counts: {
+        all: number;
+        pending: number;
+        completed: number;
+      };
     };
-  }
+  } 

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Task, TaskDocument } from './schemas/task.schema';
+import { Task, TaskDocument, TaskStatus } from './schemas/task.schema';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { QueryTaskDto } from './dto/query-task.dto';
@@ -27,7 +27,7 @@ export class TasksService {
   
     const skip = (page - 1) * limit;
   
-    const [tasks, total] = await Promise.all([
+    const [tasks, total, pendingCount, completedCount] = await Promise.all([
       this.taskModel
         .find(filter)
         .sort({ createdAt: -1 })
@@ -35,6 +35,8 @@ export class TasksService {
         .limit(limit)
         .exec(),
       this.taskModel.countDocuments(filter).exec(),
+      this.taskModel.countDocuments({ owner: userId, status: TaskStatus.PENDING }).exec(),
+      this.taskModel.countDocuments({ owner: userId, status: TaskStatus.COMPLETED }).exec(),
     ]);
   
     return {
@@ -44,9 +46,14 @@ export class TasksService {
         page,
         limit,
         totalPages: Math.ceil(total / limit),
+        counts: {
+          all: pendingCount + completedCount,
+          pending: pendingCount,
+          completed: completedCount,
+        },
       },
     };
-  }  
+  }
 
   async findOne(userId: string, taskId: string): Promise<TaskDocument> {
     const task = await this.taskModel.findById(taskId).exec();

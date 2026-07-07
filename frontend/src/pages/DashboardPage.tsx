@@ -31,20 +31,13 @@ export function DashboardPage() {
     page: 1,
     limit: 100,
   });
-
+  
   const createTask = useCreateTask();
   const updateTask = useUpdateTask();
   const deleteTask = useDeleteTask();
-
+  
   const tasks = data?.data ?? [];
-
-  const counts = useMemo(() => {
-    return {
-      all: tasks.length,
-      pending: tasks.filter((t) => t.status === TaskStatus.PENDING).length,
-      completed: tasks.filter((t) => t.status === TaskStatus.COMPLETED).length,
-    };
-  }, [tasks]);
+  const counts = data?.meta.counts ?? { all: 0, pending: 0, completed: 0 };
 
   const sortedTasks = useMemo(() => {
     const sorted = [...tasks].sort((a, b) => {
