@@ -36,10 +36,10 @@ export function TaskTable({
   onDelete,
   isLoading,
 }: TaskTableProps) {
-  const columns: { key: SortField; label: string }[] = [
-    { key: 'title', label: 'Title' },
-    { key: 'status', label: 'Status' },
-    { key: 'createdAt', label: 'Created' },
+  const columns: { key: SortField; label: string; width: string }[] = [
+    { key: 'title', label: 'Title', width: 'w-[45%]' },
+    { key: 'status', label: 'Status', width: 'w-[15%]' },
+    { key: 'createdAt', label: 'Created', width: 'w-[20%]' },
   ];
 
   if (isLoading) {
@@ -66,11 +66,11 @@ export function TaskTable({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-100">
-      <table className="w-full">
+      <table className="w-full table-fixed">
         <thead>
           <tr className="border-b border-gray-100 bg-gray-50/50">
             {columns.map((col) => (
-              <th key={col.key} className="px-5 py-3 text-left">
+              <th key={col.key} className={`${col.width} px-5 py-3 text-left`}>
                 <button
                   onClick={() => onSort(col.key)}
                   className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-gray-700"
@@ -80,7 +80,7 @@ export function TaskTable({
                 </button>
               </th>
             ))}
-            <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <th className="w-[20%] px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-500">
               Actions
             </th>
           </tr>
@@ -100,7 +100,8 @@ export function TaskTable({
                 <td className="px-5 py-4">
                   <button
                     onClick={() => onToggleStatus(task)}
-                    className="flex items-center gap-2.5 text-left"
+                    title={task.title}
+                    className="flex w-full items-center gap-2.5 text-left"
                   >
                     {task.status === TaskStatus.COMPLETED ? (
                       <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-500" />
@@ -108,7 +109,7 @@ export function TaskTable({
                       <Circle className="h-5 w-5 shrink-0 text-gray-300" />
                     )}
                     <span
-                      className={`font-medium ${
+                      className={`truncate font-medium ${
                         task.status === TaskStatus.COMPLETED
                           ? 'text-gray-400 line-through'
                           : 'text-gray-900'
