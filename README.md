@@ -25,7 +25,7 @@ A full-stack task management application with JWT authentication, built with Nes
 
 ## Project Structure
 
-\`\`\`
+```
 task-management-app/
 ├── backend/                  # NestJS REST API
 │   └── src/
@@ -42,7 +42,7 @@ task-management-app/
         ├── pages/               # Login, Register, Dashboard
         ├── types/               # Shared TypeScript types
         └── utils/               # Validation schemas
-\`\`\`
+```
 
 ## Setup Instructions
 
@@ -81,18 +81,18 @@ The app runs on `http://localhost:5173` by default.
 ### Environment Variables
 
 **backend/.env**
-\`\`\`
+```
 PORT=3000
 MONGODB_URI=mongodb://localhost:27017/task-management-app
 JWT_SECRET=your-super-secret-jwt-key-change-this
 JWT_EXPIRES_IN=1d
 FRONTEND_URL=http://localhost:5173
-\`\`\`
+```
 
 **frontend/.env**
-\`\`\`
+```
 VITE_API_URL=http://localhost:3000
-\`\`\`
+```
 
 ## API Endpoints
 
